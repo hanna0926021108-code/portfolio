@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yuhan Liu | Digital Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --card-bg: rgba(20, 20, 20, 0.6);
+            --accent-purple: #a855f7;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Apple-style Glassmorphism */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+        }
+
+        /* Section Backgrounds */
+        .section-bg {
+            position: relative;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 10vh;
+            background-image: url('bg_hero_final.jpg');
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 40%, rgba(0,0,0,0.8) 80%, rgba(0,0,0,1) 100%);
+            z-index: 1;
+        }
+
+        /* Education Section - Back to Dark */
+        .education-section {
+            background-color: #000000;
+            padding: 120px 0;
+        }
+
+        /* Experience Section with City background */
+        .experience-section {
+            background-image: url('bg_experience.jpg');
+            position: relative;
+            padding: 120px 0;
+        }
+
+        .experience-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 20%, rgba(0,0,0,0.7) 80%, rgba(0,0,0,1) 100%);
+            z-index: 1;
+        }
+
+        /* Other Side Section with Hiking background */
+        .otherside-section {
+            background-image: url('bg_otherside.jpg');
+            position: relative;
+            padding: 120px 0;
+        }
+
+        .otherside-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 20%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,1) 100%);
+            z-index: 1;
+        }
+
+        .content-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Bento Box Layout */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(180px, auto);
+            gap: 1.5rem;
+        }
+
+        .bento-item {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-item:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
+        }
+
+        /* 16:9 Video Container */
+        .video-container-16-9 {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%;
+            background: #111;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .video-container-16-9 video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Breathing Neon Purple Effect */
+        .neon-breath {
+            animation: neon-pulse 4s infinite alternate;
+        }
+
+        @keyframes neon-pulse {
+            0% { box-shadow: 0 0 5px rgba(168, 85, 247, 0.1); }
+            100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
+        }
+
+        /* Logo Styling */
+        .logo-container {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+            padding: 4px;
+        }
+        .logo-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* School Icon Styling */
+        .school-icon {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .school-icon img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* Image Gallery for SM Section - Fixed to 2x2 Grid */
+        .sm-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        .sm-gallery-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+        .sm-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .sm-gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        .sm-gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        /* Outdoor Section Styling */
+        .outdoor-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .outdoor-img-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+        .outdoor-img-item {
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+        }
+        .outdoor-img-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* PPT Slideshow */
+        .ppt-slideshow {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 16px;
+            background: #111;
+        }
+        .ppt-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+        }
+        .ppt-slide {
+            min-width: 100%;
+        }
+        .ppt-slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .ppt-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.2s;
+        }
+        .ppt-nav:hover { background: rgba(168,85,247,0.7); }
+        .ppt-nav.prev { left: 12px; }
+        .ppt-nav.next { right: 12px; }
+        .ppt-dots {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px 0 4px;
+        }
+        .ppt-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .ppt-dot.active { background: #a855f7; }
+
+        /* H5 Two-Column Layout */
+        .h5-layout-row {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        .h5-img-col {
+            flex: 0 0 33%;
+            max-width: 33%;
+        }
+        .h5-text-col {
+            flex: 1;
+            padding-top: 4px;
+        }
+        /* H5 Vertical Scroll */
+        .h5-combined {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            max-height: 600px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(168,85,247,0.4) transparent;
+        }
+        .h5-combined img {
+            width: 100%;
+            display: block;
+        }
+        @media (max-width: 640px) {
+            .h5-layout-row { flex-direction: column; }
+            .h5-img-col { flex: 0 0 100%; max-width: 100%; }
+        }
+
+        /* Design Section Tabs */
+        .design-tab {
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #9ca3af;
+            transition: all 0.2s;
+            background: transparent;
+        }
+        .design-tab.active {
+            background: rgba(168,85,247,0.2);
+            border-color: rgba(168,85,247,0.5);
+            color: #c084fc;
+        }
+        .design-panel { display: none; }
+        .design-panel.active { display: block; }
+
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+        }
+        .modal-content {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 40px;
+            position: relative;
+        }
+        .close-modal {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            font-size: 40px;
+            cursor: pointer;
+            color: white;
+            z-index: 1001;
+        }
+
+        @media (max-width: 1024px) {
+            .bento-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .bento-grid { grid-template-columns: 1fr; }
+            /* Keep 2x2 grid even on mobile for SM gallery if possible, or 1 col if too small */
+            /* .sm-gallery { grid-template-columns: 1fr; } */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect rounded-none border-x-0 border-t-0 bg-black/20 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-xl font-bold tracking-tighter">YUHAN LIU</div>
+            <div class="flex items-center space-x-4 md:space-x-8">
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-400">
+                    <a href="#home" data-i18n="nav_home" class="hover:text-white transition-colors">首页</a>
+                    <a href="#education" data-i18n="nav_edu" class="hover:text-white transition-colors">教育背景</a>
+                    <a href="#experience" data-i18n="nav_exp" class="hover:text-white transition-colors">工作经验</a>
+                    <a href="#projects" data-i18n="nav_projects" class="hover:text-white transition-colors">项目作品</a>
+                    <a href="#otherside" data-i18n="nav_otherside" class="hover:text-white transition-colors">不一样的我</a>
+                </div>
+                <button onclick="toggleLanguage()" class="lang-switch glass-effect px-3 py-1 text-xs font-bold rounded-full border-purple-500/50 text-purple-400">
+                    EN / 中
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="section-bg hero-section">
+        <div class="hero-overlay"></div>
+        <div class="content-container text-center space-y-4">
+            <h1 class="text-6xl md:text-8xl font-bold tracking-tighter leading-none">YUHAN LIU</h1>
+            <p data-i18n="hero_title" class="text-xl md:text-2xl font-light text-gray-300 tracking-tight">Digital marketer, content creator.</p>
+            <div class="h-px w-24 bg-purple-500 mx-auto my-2"></div>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-2 md:space-y-0 md:space-x-6 text-sm text-gray-400 font-medium">
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                    <span data-i18n="hero_edu_1">伦敦国王学院 (KCL)</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                    <span data-i18n="hero_edu_2">中央戏剧学院</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="education-section">
+        <div class="content-container">
+            <div class="flex items-center space-x-4 mb-12">
+                <div class="h-px flex-grow bg-white/10"></div>
+                <h2 data-i18n="edu_title" class="text-4xl font-bold tracking-tighter">教育背景</h2>
+                <div class="h-px flex-grow bg-white/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- KCL -->
+                <div class="glass-effect p-8 relative group">
+                    <div class="absolute top-8 right-8 school-icon">
+                        <img src="logo_kcl.png" alt="KCL Logo">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">King's College London</h3>
+                    <p data-i18n="edu_1_degree" class="text-purple-400 font-medium mb-4">数字资产与媒体管理 | 硕士</p>
+                    <p data-i18n="edu_1_desc" class="text-gray-400 text-sm leading-relaxed">核心课程：数字营销、全球数字受众、互联网文化、虚假新闻与网络文化。</p>
+                </div>
+
+                <!-- CAD -->
+                <div class="glass-effect p-8 relative group">
+                    <div class="absolute top-8 right-8 school-icon">
+                        <img src="logo_cad.webp" alt="CAD Logo">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">The Central Academy of Drama</h3>
+                    <p data-i18n="edu_2_degree" class="text-purple-400 font-medium mb-4">艺术管理 (剧目制作) | 学士</p>
+                    <p data-i18n="edu_2_desc" class="text-gray-400 text-sm leading-relaxed">GPA: 3.65/4.0 | 2024 二等奖学金。核心课程：文化活动管理、演艺市场营销、艺术法。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section-bg experience-section">
+        <div class="experience-overlay"></div>
+        <div class="content-container">
+            <div class="flex items-center space-x-4 mb-12">
+                <div class="h-px flex-grow bg-white/10"></div>
+                <h2 data-i18n="exp_title" class="text-4xl font-bold tracking-tighter">工作经验</h2>
+                <div class="h-px flex-grow bg-white/10"></div>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Publicis -->
+                <div class="glass-effect p-8 flex flex-col md:flex-row gap-8">
+                    <div class="logo-container">
+                        <img src="logo_publicis.png" alt="Publicis Logo">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold">Publicis Groupe</h3>
+                                <p data-i18n="exp_1_role" class="text-purple-400">公关实习生 | 北京</p>
+                            </div>
+                            <span class="text-gray-500 text-sm font-mono">2024.09 - 2025.01</span>
+                        </div>
+                        <ul class="space-y-2 text-gray-400 text-sm list-disc list-inside">
+                            <li data-i18n="exp_1_list_0">支持波司登及星展银行（DBS）整合公关活动，品牌正面情绪提升 10%。</li>
+                            <li data-i18n="exp_1_list_1">协助执行星展银行 10 周年“可持续发展市场”活动，协调 14 个合作伙伴展位。</li>
+                            <li data-i18n="exp_1_list_2">统筹 3 场波司登大型活动，覆盖 50+ 媒体，社交声量提升 20%，曝光量增加 15%。</li>
+                            <li data-i18n="exp_1_list_3">撰写 20+ 篇高管演讲稿及 media Q&A，采纳率达 90%。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Hanhao -->
+                <div class="glass-effect p-8 flex flex-col md:flex-row gap-8">
+                    <div class="logo-container">
+                        <img src="logo_hanhao.jpg" alt="Hanhao Logo">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold">FilmAction (Hanhao Technology)</h3>
+                                <p data-i18n="exp_2_role" class="text-purple-400">市场与品牌实习生 | 北京</p>
+                            </div>
+                            <span class="text-gray-500 text-sm font-mono">2024.03 - 2024.08</span>
+                        </div>
+                        <ul class="space-y-2 text-gray-400 text-sm list-disc list-inside">
+                            <li data-i18n="exp_2_list_0">从 0 到 1 构建 FilmAction 私域社区，1 个月内增长至 2000+ 成员，互动率提升 10%。</li>
+                            <li data-i18n="exp_2_list_1">运营微信、小红书及视频号，粉丝增长 35%，UGC 内容增长 50%。</li>
+                            <li data-i18n="exp_2_list_2">主导 2024 产品发布会公关，获得 10+ 媒体报道及 20 万+ 曝光，促成国家级媒体采访。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Country Garden -->
+                <div class="glass-effect p-8 flex flex-col md:flex-row gap-8">
+                    <div class="logo-container">
+                        <img src="logo_country_garden.png" alt="Country Garden Logo">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold">Country Garden</h3>
+                                <p data-i18n="exp_3_role" class="text-purple-400">品牌实习生 | 佛山</p>
+                            </div>
+                            <span class="text-gray-500 text-sm font-mono">2022.06 - 2022.09</span>
+                        </div>
+                        <ul class="space-y-2 text-gray-400 text-sm list-disc list-inside">
+                            <li data-i18n="exp_3_list_0">监测抖音/今日头条舆情，识别风险并助力负面信息减少 18%。</li>
+                            <li data-i18n="exp_3_list_1">支持国强公益基金会直播活动，优化脚本使销售额提升 12%。</li>
+                            <li data-i18n="exp_3_list_2">进行 KOL 分析，筛选 300 万+ 粉丝博主，提升活动参与度 25%。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-32 bg-black">
+        <div class="content-container">
+            <div class="flex items-center space-x-4 mb-12">
+                <div class="h-px flex-grow bg-white/10"></div>
+                <h2 data-i18n="proj_title" class="text-4xl font-bold tracking-tighter">项目作品</h2>
+                <div class="h-px flex-grow bg-white/10"></div>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Honor Project -->
+                <div class="bento-item glass-effect p-8 col-span-2 row-span-2 neon-breath cursor-pointer" onclick="openModal('honor')">
+                    <div class="flex justify-between items-start mb-6">
+                        <span data-i18n="proj_1_tag" class="px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-bold rounded-full border border-purple-500/30">荣耀创意挑战赛 全国第五</span>
+                        <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </div>
+                    <h3 data-i18n="proj_1_title" class="text-3xl font-bold mb-4">荣耀 70 & 平板 8 营销方案</h3>
+                    <p data-i18n="proj_1_desc" class="text-gray-400 mb-8">作为队长，策划“主角模式”定位，针对年轻用户群体。制作短片《月圆之时》，全网播放量超 6 万。</p>
+                    <div class="video-container-16-9">
+                        <video src="honor_video.mov" autoplay muted loop playsinline></video>
+                    </div>
+                    <div class="mt-4 text-xs text-purple-400 font-bold flex items-center">
+                        <span data-i18n="click_more">点击了解更多</span>
+                        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                </div>
+
+                <!-- Immortals Project -->
+                <div class="bento-item glass-effect p-8 col-span-2 cursor-pointer" onclick="openModal('immortals')">
+                    <div class="flex justify-between items-start mb-4">
+                        <span data-i18n="proj_2_tag" class="px-3 py-1 bg-white/5 text-gray-400 text-xs font-bold rounded-full border border-white/10">全国大学生艺术策划大赛 二等奖</span>
+                        <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </div>
+                    <h3 data-i18n="proj_2_title" class="text-2xl font-bold mb-2">“此间：八仙非遗”沉浸式街区</h3>
+                    <p data-i18n="proj_2_desc" class="text-gray-400 text-sm">设计结合灯光秀、无人机与元宇宙 AI 交互的非遗体验。</p>
+                    <div class="mt-4 text-xs text-gray-500 font-bold flex items-center">
+                        <span data-i18n="click_more">点击了解更多</span>
+                        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                </div>
+
+                <!-- TikTok Stats -->
+                <div class="bento-item glass-effect p-8 flex flex-col justify-center items-center text-center">
+                    <div class="text-4xl font-bold text-purple-400 mb-1">60,000+</div>
+                    <div data-i18n="proj_3_title" class="text-sm font-bold">TikTok 30日播放量</div>
+                    <div data-i18n="proj_3_desc" class="text-xs text-gray-500 mt-2">个人账号内容创作者</div>
+                </div>
+
+                <!-- Design Portfolio -->
+                <div class="bento-item glass-effect p-8 flex flex-col justify-between cursor-pointer border-dashed border-purple-500/30" onclick="openModal('design')">
+                    <div>
+                        <span data-i18n="design_tag" class="text-[10px] uppercase tracking-widest text-purple-400 font-bold">设计作品集</span>
+                        <h3 data-i18n="design_title" class="text-xl font-bold mt-2">我的设计作品</h3>
+                        <p data-i18n="design_desc" class="text-xs text-gray-500 mt-1">融资路演 PPT · H5 微信推文 · 展板设计</p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-1 my-3 opacity-70 rounded-lg overflow-hidden">
+                        <img src="design_filmaction_ppt.webp" class="w-full h-12 object-cover object-top">
+                        <img src="design_h5_1.webp" class="w-full h-12 object-cover object-top">
+                        <img src="design_hicool_booth.webp" class="w-full h-12 object-cover object-center">
+                    </div>
+                    <div class="text-xs text-purple-400 font-bold flex items-center">
+                        <span data-i18n="click_more">点击了解更多</span>
+                        <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Other Side Section -->
+    <section id="otherside" class="section-bg otherside-section">
+        <div class="otherside-overlay"></div>
+        <div class="content-container">
+            <div class="flex items-center space-x-4 mb-12">
+                <div class="h-px flex-grow bg-white/10"></div>
+                <h2 data-i18n="otherside_title" class="text-4xl font-bold tracking-tighter">不一样的我</h2>
+                <div class="h-px flex-grow bg-white/10"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Stage Manager -->
+                <div class="glass-effect p-8">
+                    <div class="flex items-center space-x-4 mb-8">
+                        <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h4 data-i18n="sm_title" class="text-2xl font-bold">0失误的 Stage Manager</h4>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <p data-i18n="sm_desc_1" class="text-gray-400 leading-relaxed">担任2023年桂林艺术节及世界戏剧教育联盟展演重点剧目《梁祝》的舞台监督。与世界知名舞美设计师刘杏林紧密合作，确保复杂舞美、灯光及场景切换的无缝执行。</p>
+                        <p data-i18n="sm_desc_2" class="text-gray-400 leading-relaxed">担任《戏剧春秋》舞台监督。负责监督舞台制作的所有环节，包括排练调度、道具管理及每场演出的技术协调。</p>
+                        
+                        <div class="sm-gallery mt-8">
+                            <div class="sm-gallery-item">
+                                <img src="sm_drama.jpg" alt="Drama Chronicles">
+                                <div class="sm-gallery-caption">Drama Chronicles</div>
+                            </div>
+                            <div class="sm-gallery-item">
+                                <img src="sm_butterfly.jpg" alt="The Butterfly Lovers">
+                                <div class="sm-gallery-caption">The Butterfly Lovers</div>
+                            </div>
+                            <div class="sm-gallery-item">
+                                <img src="sm_onstage.jpg" alt="Me on Stage">
+                                <div class="sm-gallery-caption" data-i18n="sm_cap_3">我在舞台上</div>
+                            </div>
+                            <div class="sm-gallery-item">
+                                <img src="sm_console.jpg" alt="At the Console">
+                                <div class="sm-gallery-caption" data-i18n="sm_cap_4">我在舞台控制台工作</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Outdoor Enthusiast -->
+                <div class="glass-effect p-8">
+                    <div class="flex items-center space-x-4 mb-8">
+                        <div class="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center">
+                            <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                        </div>
+                        <h4 data-i18n="outdoor_title" class="text-2xl font-bold">户外运动爱好者</h4>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <!-- Hiking -->
+                        <div class="outdoor-card">
+                            <div class="outdoor-img-grid">
+                                <div class="outdoor-img-item"><img src="outdoor_hiking_1.jpg" alt="Hiking 1"></div>
+                                <div class="outdoor-img-item"><img src="outdoor_hiking_2.jpg" alt="Hiking 2"></div>
+                            </div>
+                            <div>
+                                <h5 data-i18n="hiking_title" class="font-bold text-white text-lg mb-2">高海拔徒步 | Hiking</h5>
+                                <p data-i18n="hiking_desc" class="text-gray-400 text-sm leading-relaxed">曾在云南雨崩完成4天60公里的高海拔徒步，累计爬升4000米，全程负重13公斤。挑战极限，探索自然之美。</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Powerboating -->
+                        <div class="outdoor-card">
+                            <div class="outdoor-img-grid">
+                                <div class="outdoor-img-item"><img src="outdoor_boat_1.jpg" alt="Powerboat License"></div>
+                                <div class="outdoor-img-item"><img src="outdoor_boat_2.jpg" alt="Driving Boat"></div>
+                            </div>
+                            <div>
+                                <h5 data-i18n="boat_title" class="font-bold text-white text-lg mb-2">冲锋艇驾驶 | Powerboating</h5>
+                                <p data-i18n="boat_desc" class="text-gray-400 text-sm leading-relaxed">持有 RYA Powerboat Level 2 证书，具备在全球范围内驾驶长度10米以内冲锋艇的资格。享受速度与浪花的律动。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals -->
+    <div id="honor-modal" class="modal">
+        <span class="close-modal" onclick="closeModal('honor')">&times;</span>
+        <div class="modal-content glass-effect">
+            <h2 data-i18n="proj_1_title" class="text-4xl font-bold mb-6">荣耀 70 & 平板 8 营销方案</h2>
+            <!-- Honor PPT Slideshow -->
+            <div class="mb-6">
+                <span class="text-xs text-purple-400 font-bold uppercase tracking-widest">荣耀创意挑战赛 · 全国第五</span>
+                <p class="text-gray-400 text-sm mt-1 mb-4">下方为比赛完整 PPT 方案，共 20 页</p>
+                <div class="ppt-slideshow" id="honor-ppt-slideshow">
+                    <div class="ppt-track" id="honor-ppt-track">
+                        <div class="ppt-slide"><img src="design_honor_ppt.webp" alt="荣耀 PPT"></div>
+                    </div>
+                    <button class="ppt-nav prev" onclick="slidePPT('honor-ppt', -1)">&#8249;</button>
+                    <button class="ppt-nav next" onclick="slidePPT('honor-ppt', 1)">&#8250;</button>
+                </div>
+            </div>
+            <div class="video-container-16-9 mb-8">
+                <video src="honor_video.mov" controls muted loop playsinline></video>
+            </div>
+            <!-- Bilingual project detail: switches with global language toggle -->
+            <div id="honor-detail-zh" class="honor-lang-block space-y-5 text-gray-300 text-sm leading-relaxed">
+                <p>大二期间，我作为组长与一位队友参与了2022年荣耀创意精英挑战赛。复赛阶段，我们围绕荣耀 70 的「主角模式」，以毕业季为背景拍摄了一支叙事型短片；在决赛阶段，我们为荣耀 70 与荣耀平板 8 面向大学生群体设计整合营销方案，并最终获得全国第五名。</p>
+                <p>在这份方案中，我当时的核心思路是：基于大学生群体“重体验、强表达、偏感性消费”的特征，将产品的多屏协同与大屏体验转译为学习、创作与娱乐等具体使用场景，并以“多元宇宙”作为创意母题，串联 TVC 传播、KOL 投放与校园线下展览，试图通过情绪共鸣与参与机制提升品牌好感度与曝光。</p>
+                <p class="text-purple-300 font-semibold">但从现在回看，这个方案在策略层面存在较为系统性的不足：</p>
+                <div class="space-y-4">
+                    <div class="border-l-2 border-purple-500/40 pl-4">
+                        <p class="font-semibold text-white mb-1">用“流行概念”替代“真实需求”</p>
+                        <p>当时选择“元宇宙”作为核心创意，本质是借势热点而非从用户出发。问题在于，这一概念与“为什么要买一台荣耀设备”之间缺乏直接因果关系，用户很难将抄象叙事转化为具体购买理由。换句话说，这是一个“好讲述但不好卖货”的创意。</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500/40 pl-4">
+                        <p class="font-semibold text-white mb-1">用户洞察停留在“标签化”，缺乏决策驱动因素</p>
+                        <p>我们提炼了如“感性消费”“追求体验”等特征，但这些更多是对群体的描述，而非影响决策的关键变量。方案中缺失的是：用户在什么情境下会犹豫？在什么条件下会下单？例如“效率 vs 娱乐”“价格 vs 性能”的权衡并未被纳入策略核心。</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500/40 pl-4">
+                        <p class="font-semibold text-white mb-1">产品表达缺乏“非你不可”的理由</p>
+                        <p>虽然完成了从功能到场景的映射，但这些场景并未建立与荣耀产品的强绑定关系，本质上是“这个场景可以用荣耀”，而不是“这个场景更适合用荣耀”。缺乏差异化论证，使产品在决策链路中容易被替代。</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500/40 pl-4">
+                        <p class="font-semibold text-white mb-1">传播策略本质仍是“品牌单向输出”</p>
+                        <p>当时采用 TVC+KOL+线下展的组合，在学生竞赛语境中是完整的，但本质仍属于中心化传播逻辑：品牌生产内容，用户被动接收。缺少用户自发参与与内容再生产机制，导致传播难以形成持续扩散。</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500/40 pl-4">
+                        <p class="font-semibold text-white mb-1">转化路径缺失，结果指标缺乏支撑逻辑</p>
+                        <p>方案中直接给出了曝光、转化率与销量预期，但没有拆解从“看到内容”到“完成购买”的具体路径，也没有解释每一环节如何影响转化。这在真实商业环境中会被视为关键缺口，因为 ROI 无法被验证或复用。</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500/40 pl-4">
+                        <p class="font-semibold text-white mb-1">数据设计偏“展示性”，缺乏可执行性</p>
+                        <p>指标设置更接近结果陈述，而非运营过程中的监测工具，例如缺少点击率、加购率、转化成本等中间指标，也没有对应的数据采集与归因方式。</p>
+                    </div>
+                </div>
+                <p class="text-purple-300 font-semibold mt-2">如果将这一项目放到2026年重新执行，我会进行以下结构性调整：</p>
+                <div class="space-y-3">
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold shrink-0">01</span><p><span class="font-semibold text-white">从“概念驱动”转向“问题驱动”</span>——以“多设备切换带来的效率损耗”为核心切口，将多屏协同从“功能卖点”升级为“解决方案”，直接嵌入用户日常学习与生活决策场景。</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold shrink-0">02</span><p><span class="font-semibold text-white">重构内容逻辑：从品牌叙事转向真实记录</span>——放弃 TVC 作为核心内容形态，转而以真实用户的多设备使用场景为内容主体，通过可感知的使用体验建立信任。</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold shrink-0">03</span><p><span class="font-semibold text-white">从 KOL 投放转向 KOC/UGC 驱动的内容生态</span>——通过大量普通用户内容而非头部达人，构建更高真实性的种草环境，使“他人经验”成为主要说服力来源。</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold shrink-0">04</span><p><span class="font-semibold text-white">补全完整转化链路并建立数据闭环</span>——明确“内容触达 → 兴趣产生 → 跳转电商 → 下单转化”的路径，并设置可量化指标（CTR、加购率、转化率等），使每一阶段都可被优化与复盘。</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold shrink-0">05</span><p><span class="font-semibold text-white">强化产品差异表达，建立选择理由</span>——将“多屏协同”的具体优势量化并可视化，让用户理解“为什么这套组合优于替代方案”。</p></div>
+                </div>
+                <p class="mt-4 text-gray-400 italic">这个项目让我第一次意识到，营销方案的价値不在于“讲了一个完整的故事”，而在于是否能够解释清楚：用户为什么会因此改变决策。这种从“表达导向”转向“决策导向”的转变，也成为我后续所有项目中持续修正的核心。</p>
+            </div>
+            <div id="honor-detail-en" class="honor-lang-block space-y-5 text-gray-300 text-sm leading-relaxed" style="display:none">
+                <p>During my sophomore year, I led a team with one teammate to participate in the 2022 Honor Creative Elite Challenge. In the semi-final round, we produced a narrative short film centered on the "Protagonist Mode" of the Honor 70, using the graduation season as the backdrop. In the final round, we designed an integrated marketing campaign targeting university students for the Honor 70 and Honor Pad 8, ultimately achieving fifth place nationwide.</p>
+                <p>In this campaign, my core approach was: based on the characteristics of university students—valuing experience, strong self-expression, and a tendency toward emotional consumption—we translated the product’s multi-screen collaboration and large-screen experience into concrete usage scenarios such as studying, creating, and entertainment. Using the concept of a "multiverse" as the central creative theme, we connected TVC communication, KOL placements, and offline campus exhibitions, aiming to enhance brand favorability and exposure through emotional resonance and participatory mechanisms.</p>
+                <p class="text-purple-300 font-semibold">However, in retrospect, the campaign revealed several systematic shortcomings at the strategic level:</p>
+                <div class="space-y-4">
+                    <div class="border-l-2 border-purple-500/40 pl-4">
+                        <p class="font-semibold text-white mb-1">Substituting "trendy concepts" for "real needs"</p>
+                        <p>Choosing the "metaverse" as the core creative concept was essentially an attempt to leverage a popular trend rather than starting from user needs. The concept lacked a direct causal link to "why one should purchase an Honor device." Users found it difficult to translate abstract narratives into concrete purchase motivations—it was "easy to tell but hard to sell."</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500/40 pl-4">
+                        <p class="font-semibold text-white mb-1">User insights remained at the level of "labeling," lacking decision-driving factors</p>
+                        <p>We identified traits such as "emotional consumption" and "experience-oriented behavior," but these were descriptive rather than explanatory of decision-making. Missing was a deeper understanding of when users hesitate and under what conditions they decide to purchase—trade-offs like "efficiency vs. entertainment" and "price vs. performance" were not incorporated into the strategic core.</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500/40 pl-4">
+                        <p class="font-semibold text-white mb-1">Product communication lacked a compelling "reason-to-choose"</p>
+                        <p>Although we mapped product functions to scenarios (studying, fitness, photo editing), these scenarios did not establish a strong, exclusive link to Honor products. The message was "this scenario can be done with Honor," rather than "this scenario is better with Honor." The lack of differentiated justification made the product easily substitutable.</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500/40 pl-4">
+                        <p class="font-semibold text-white mb-1">The communication strategy remained fundamentally "one-way brand output"</p>
+                        <p>While the combination of TVC, KOLs, and offline exhibitions appeared comprehensive within a student competition context, it still followed a centralized communication logic: the brand produced content, and users passively received it. There was little mechanism for user-generated participation or content reproduction, making it difficult to sustain organic diffusion.</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500/40 pl-4">
+                        <p class="font-semibold text-white mb-1">Missing conversion pathways and unsupported outcome metrics</p>
+                        <p>The proposal directly presented expectations for exposure, conversion rates, and sales, but failed to break down the actual path from "content exposure" to "purchase completion," or explain how each stage contributed to conversion. In a real business context, this would be considered a critical gap, as ROI could neither be validated nor replicated.</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500/40 pl-4">
+                        <p class="font-semibold text-white mb-1">Data design was presentation-oriented rather than actionable</p>
+                        <p>The metrics resembled outcome statements rather than operational monitoring tools. There was a lack of intermediate indicators such as click-through rate, add-to-cart rate, and cost per conversion, as well as corresponding methods for data collection and attribution.</p>
+                    </div>
+                </div>
+                <p class="text-purple-300 font-semibold mt-2">If I were to re-execute this project in 2026, I would make the following structural adjustments:</p>
+                <div class="space-y-3">
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold shrink-0">01</span><p><span class="font-semibold text-white">From "concept-driven" to "problem-driven" strategy</span>—Focus on the inefficiencies caused by switching between devices as the key entry point, upgrading multi-screen collaboration from a "feature" into a "solution" embedded directly into users' everyday study and life decisions.</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold shrink-0">02</span><p><span class="font-semibold text-white">Reconstructing content logic: from brand storytelling to real-life documentation</span>—Instead of using TVCs as the core content format, center content on real user scenarios of multi-device usage, building trust through tangible experiences rather than relying on emotional narratives.</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold shrink-0">03</span><p><span class="font-semibold text-white">From KOL-driven exposure to a KOC/UGC-driven content ecosystem</span>—By leveraging a large volume of ordinary user-generated content rather than top influencers, create a more authentic environment for product discovery, where peer experiences become the primary source of persuasion.</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold shrink-0">04</span><p><span class="font-semibold text-white">Completing the conversion funnel and establishing a data loop</span>—Clearly define the path from "content exposure → interest generation → e-commerce redirection → purchase conversion," and assign measurable metrics (CTR, add-to-cart rate, conversion rate, etc.) to each stage.</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold shrink-0">05</span><p><span class="font-semibold text-white">Strengthening product differentiation and building a clear "reason to choose"</span>—Quantify and visualize the specific advantages of multi-screen collaboration, helping users understand why this ecosystem outperforms alternatives.</p></div>
+                </div>
+                <p class="mt-4 text-gray-400 italic">This project was the first time I realized that the value of a marketing proposal does not lie in telling a complete story, but in clearly explaining why it can change user decisions. This shift—from an "expression-oriented" approach to a "decision-oriented" one—has since become a core principle that I continuously refine in my subsequent projects.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="immortals-modal" class="modal">
+        <span class="close-modal" onclick="closeModal('immortals')">&times;</span>
+        <div class="modal-content glass-effect">
+            <h2 data-i18n="proj_2_title" class="text-4xl font-bold mb-6">"此间：八仙非遗"沉浸式街区</h2>
+            <!-- Baxian PPT Slideshow -->
+            <div class="ppt-slideshow mb-8" id="baxian-slideshow">
+                <div class="ppt-track" id="baxian-track">
+                    <div class="ppt-slide"><img src="design_baxian_ppt.png" alt="八仙非遗 PPT"></div>
+                </div>
+                <button class="ppt-nav prev" onclick="slidePPT('baxian', -1)">&#8249;</button>
+                <button class="ppt-nav next" onclick="slidePPT('baxian', 1)">&#8250;</button>
+            </div>
+
+            <!-- Chinese version -->
+            <div id="immortals-detail-zh" class="prose prose-invert max-w-none">
+                <p class="text-gray-300 text-lg leading-relaxed">在大三期间，我与团队参与全国大学生艺术项目策划大赛，选择"城市更新"赛道，围绕山东烟台蓬莱戚府里街区的改造进行策划，并最终获得全国二等奖。</p>
+                <p class="text-gray-300 text-lg leading-relaxed mt-4">项目以当地"八仙过海"传说为核心文化IP，结合戚继光故居的历史背景，尝试通过"神话+非遗+商业"的方式激活衰落街区。我们以八仙各自的法器为灵感，对街区原有建筑与业态进行重构，设计了包括主题店铺、非遗体验空间、NPC互动机制在内的商业体系，并通过花车巡游、沉浸式戏剧演出与无人机灯光秀，打造一个兼具观演与参与体验的"仙境式"文旅场景。</p>
+                <p class="text-gray-300 text-lg leading-relaxed mt-4">从当时的创作逻辑来看，我们的核心思路是：以强文化IP（八仙）作为叙事主线，将"看"（演出）、"逛"（街区）、"玩"（互动任务）、"买"（商业消费）串联成一个完整体验路径，试图通过沉浸式叙事提升游客停留时间与消费转化。</p>
+                <p class="text-gray-300 text-lg leading-relaxed mt-4">但从现在的视角复盘，这个项目在"创意完整性"之外，存在几个更本质的问题：</p>
+
+                <div class="mt-6 space-y-5">
+                    <div class="border-l-2 border-purple-500 pl-4">
+                        <h4 class="text-white font-bold text-base mb-1">IP使用停留在"视觉与主题层"，缺乏内容持续生产能力</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">我们将八仙拆解为店铺、NPC与演出元素（如巡游表演与集章机制），但本质上仍是"主题包装"，缺乏持续更新的内容机制（如剧情迭代、角色成长、节庆变化）。这意味着项目初期有吸引力，但长期复访动力不足。</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500 pl-4">
+                        <h4 class="text-white font-bold text-base mb-1">体验设计偏"堆叠"，缺乏核心动线与记忆点聚焦</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">方案中包含演出、巡游、店铺、DIY、点灯仪式等多种模块，但没有明确的"核心爆点体验"。用户路径更像"内容集合"，而不是围绕一个强体验展开的叙事动线，容易导致体验分散、记忆不集中。</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500 pl-4">
+                        <h4 class="text-white font-bold text-base mb-1">商业模型不清晰，消费与成本结构未闭环</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">虽然设计了多种店铺（换装、香囊、酒馆、茶饮等）及价格体系，但没有回答关键问题：哪些是引流型业态，哪些是利润核心？客单价与客流量如何支撑整体回本周期？演出、NPC、无人机等高成本项目如何被摊销？这也是当时评委指出"资金问题"的本质原因。</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500 pl-4">
+                        <h4 class="text-white font-bold text-base mb-1">重内容轻运营，对现实落地复杂度预估不足</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">项目涉及非遗传承人、演员训练、花车制作、政府审批、交通管制等多方协同，但我们更多从"理想体验"出发，而非"运营难度与组织成本"出发，低估了实际执行门槛。</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500 pl-4">
+                        <h4 class="text-white font-bold text-base mb-1">目标人群过于宽泛，缺乏主力消费人群聚焦</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">方案同时覆盖家庭客群、Z世代与周边游客，但不同人群的消费动机与行为差异较大，缺乏明确的"第一优先用户"，导致产品设计在深度上被稀释。</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500 pl-4">
+                        <h4 class="text-white font-bold text-base mb-1">传播策略偏传统，缺乏"自传播内容机制"设计</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">虽然有短视频、打卡与达人探店等推广方式，但更多是"投放思维"，而非在产品层面设计天然可传播的内容（如强视觉奇观、冲突性互动或可复制的UGC模板）。</p>
+                    </div>
+                </div>
+
+                <p class="text-gray-300 text-lg leading-relaxed mt-6">如果从2026年的视角重新优化这个项目，我会进行以下关键调整：</p>
+                <div class="mt-4 space-y-3">
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold text-sm min-w-[24px]">01</span><p class="text-gray-400 text-sm leading-relaxed">从"IP包装"转向"IP运营"——不仅做八仙主题视觉，而是构建持续更新的内容系统（如角色剧情、节庆版本、任务系统），让街区具备"持续可玩性"。</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold text-sm min-w-[24px]">02</span><p class="text-gray-400 text-sm leading-relaxed">聚焦单一核心体验，打造超级爆点——例如将"无人机+八仙斗法"打造成夜间唯一核心IP事件，而不是分散在多个中等体验中，提高传播效率与记忆强度。</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold text-sm min-w-[24px]">03</span><p class="text-gray-400 text-sm leading-relaxed">重构商业模型，明确盈利结构——区分引流业态（演出/打卡）与盈利业态（餐饮/体验/文创），并反推客流与定价，确保模型在财务上成立。</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold text-sm min-w-[24px]">04</span><p class="text-gray-400 text-sm leading-relaxed">从"设计项目"转向"设计运营系统"——包括人员培训、内容更新节奏、淡旺季策略等，使项目具备长期运行能力，而非一次性方案。</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold text-sm min-w-[24px]">05</span><p class="text-gray-400 text-sm leading-relaxed">以"内容可传播性"反推产品设计——在项目初期就考虑"什么内容会被拍、被转发"，例如强化视觉奇观、角色互动或参与挑战，让传播成为产品的一部分，而非后置动作。</p></div>
+                </div>
+                <p class="text-gray-300 text-lg leading-relaxed mt-6">这个项目让我第一次接触到"文化+商业+空间"的复杂系统，也让我意识到：一个成功的文旅项目，不只是"好看和好玩"，更重要的是能否在长期运营中成立。这种从"创意策划"走向"商业与运营思维"的转变，对我后续的项目产生了很大影响。</p>
+            </div>
+
+            <!-- English version -->
+            <div id="immortals-detail-en" class="prose prose-invert max-w-none" style="display:none">
+                <p class="text-gray-300 text-lg leading-relaxed">In my junior year, I participated in a national-level art and project planning competition in China, focusing on urban regeneration. Together with my team, we developed a proposal to revitalize a declining historic district (Qifu Li) in Penglai, a coastal city in Shandong Province, and won the National Second Prize.</p>
+                <p class="text-gray-300 text-lg leading-relaxed mt-4">The project was built around the local cultural legend of the "Eight Immortals Crossing the Sea" — a well-known Chinese myth in which eight legendary figures each use their unique magical objects to traverse the ocean — combined with the historical site of General Qi Jiguang's former residence (a famous Ming Dynasty military leader known for defending China's eastern coast). We aimed to reactivate the underdeveloped district by integrating mythology, intangible cultural heritage, and commercial experiences.</p>
+                <p class="text-gray-300 text-lg leading-relaxed mt-4">Our approach was to transform the existing street into an immersive cultural-commercial space: each building and store was redesigned based on one of the Eight Immortals and their symbolic artifacts, accompanied by interactive retail, craft-based experiences, live performances, and nighttime spectacles such as parades and drone light shows.</p>
+                <p class="text-gray-300 text-lg leading-relaxed mt-4">From a strategic perspective, our core idea was to use a strong cultural IP as a narrative backbone, connecting "watching" (performances), "exploring" (street experience), "interacting" (tasks and NPCs), and "consuming" (retail and F&B), in order to increase visitor engagement time and spending.</p>
+                <p class="text-gray-300 text-lg leading-relaxed mt-4">However, looking back from today's perspective, the project also revealed several structural limitations:</p>
+
+                <div class="mt-6 space-y-5">
+                    <div class="border-l-2 border-purple-500 pl-4">
+                        <h4 class="text-white font-bold text-base mb-1">IP usage remained at a thematic level, lacking long-term content sustainability</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">While we translated the Eight Immortals into stores, characters, and performances (e.g., parades and collectible tasks), the IP functioned more as a visual and thematic layer rather than a continuously evolving content system. This limits repeat visits and long-term engagement.</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500 pl-4">
+                        <h4 class="text-white font-bold text-base mb-1">Experience design was additive rather than focused</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">The project combined multiple elements — performances, parades, retail, DIY workshops, rituals — but lacked a single, defining "anchor experience." As a result, the user journey risked becoming fragmented rather than memorable.</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500 pl-4">
+                        <h4 class="text-white font-bold text-base mb-1">Business model lacked clarity and financial feasibility</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">Although we designed various retail formats and pricing structures, we did not clearly define revenue drivers, cost structure, or payback logic. In particular, high-cost elements such as live performances and drone shows were not sufficiently tied to sustainable income streams — a concern also raised by judges during the competition.</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500 pl-4">
+                        <h4 class="text-white font-bold text-base mb-1">Operational complexity was underestimated</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">The proposal involved coordination across multiple stakeholders, including local government, performers, intangible heritage artisans, and infrastructure management. However, our planning focused more on the ideal user experience than on execution feasibility and operational scalability.</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500 pl-4">
+                        <h4 class="text-white font-bold text-base mb-1">Target audience was too broad and insufficiently prioritized</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">We attempted to appeal to families, Gen Z visitors, and regional tourists simultaneously, without clearly defining a primary revenue-driving audience, which diluted the depth of product design.</p>
+                    </div>
+                    <div class="border-l-2 border-purple-500 pl-4">
+                        <h4 class="text-white font-bold text-base mb-1">Marketing relied on distribution rather than built-in shareability</h4>
+                        <p class="text-gray-400 text-sm leading-relaxed">While we proposed social media promotion and influencer visits, we did not fully embed "shareable moments" into the product itself, limiting organic content generation.</p>
+                    </div>
+                </div>
+
+                <p class="text-gray-300 text-lg leading-relaxed mt-6">If I were to revisit this project from a 2026 perspective, I would focus on several key improvements:</p>
+                <div class="mt-4 space-y-3">
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold text-sm min-w-[24px]">01</span><p class="text-gray-400 text-sm leading-relaxed">Shift from IP theming to IP operations, building evolving storylines, seasonal events, and character-driven interactions;</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold text-sm min-w-[24px]">02</span><p class="text-gray-400 text-sm leading-relaxed">Define a single flagship experience (e.g., a signature nighttime show) to concentrate attention and improve memorability;</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold text-sm min-w-[24px]">03</span><p class="text-gray-400 text-sm leading-relaxed">Reconstruct the business model, clearly separating traffic-driving elements from profit-generating ones;</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold text-sm min-w-[24px]">04</span><p class="text-gray-400 text-sm leading-relaxed">Design for long-term operations, including content updates, staffing systems, and seasonal strategies;</p></div>
+                    <div class="flex gap-3"><span class="text-purple-400 font-bold text-sm min-w-[24px]">05</span><p class="text-gray-400 text-sm leading-relaxed">Integrate content virality into product design, ensuring that the experience naturally generates shareable moments.</p></div>
+                </div>
+                <p class="text-gray-300 text-lg leading-relaxed mt-6">This project was my first attempt at working with a complex system combining culture, space, and commerce. It also marked a shift in my thinking — from focusing on creative concepts to understanding how ideas translate into sustainable business and operational models.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="design-modal" class="modal">
+        <span class="close-modal" onclick="closeModal('design')">&times;</span>
+        <div class="modal-content glass-effect">
+            <h2 data-i18n="design_title" class="text-4xl font-bold mb-2">我的设计作品</h2>
+            <p data-i18n="design_detail" class="text-gray-400 text-sm mb-8">这里展示了我在品牌传播和企业服务中的多项设计成果，涵盖融资路演 PPT、H5 微信推文及展板设计。</p>
+
+            <!-- Tab Nav -->
+            <div class="flex flex-wrap gap-2 mb-8">
+                <button class="design-tab active" onclick="switchDesignTab(this, 'filmaction-ppt')">融资路演 PPT</button>
+                <button class="design-tab" onclick="switchDesignTab(this, 'h5-wechat')">H5 微信公众号推文</button>
+                <button class="design-tab" onclick="switchDesignTab(this, 'hicool-booth')">HICOOL 展板</button>
+            </div>
+
+            <!-- Panel 1: FilmAction Roadshow PPT -->
+            <div id="panel-filmaction-ppt" class="design-panel active">
+                <div class="mb-4">
+                    <span class="text-xs text-purple-400 font-bold uppercase tracking-widest">公司融资路演 PPT</span>
+                    <h3 class="text-xl font-bold mt-1 mb-1">FilmAction (瀚皓科技) 融资路演方案</h3>
+                    <p class="text-gray-400 text-sm">为 AI 电影制作平台 FilmAction 设计的完整融资路演 PPT，涵盖产品介绍、市场分析、商业模式及团队展示，共 39 页。</p>
+                </div>
+                <div class="ppt-slideshow" id="filmaction-slideshow">
+                    <div class="ppt-track" id="filmaction-track">
+                        <div class="ppt-slide"><img src="design_filmaction_ppt.webp" alt="FilmAction PPT"></div>
+                    </div>
+                    <button class="ppt-nav prev" onclick="slidePPT('filmaction', -1)">&#8249;</button>
+                    <button class="ppt-nav next" onclick="slidePPT('filmaction', 1)">&#8250;</button>
+                </div>
+            </div>
+
+            <!-- Panel 2: H5 WeChat Article -->
+            <div id="panel-h5-wechat" class="design-panel">
+                <div class="mb-6">
+                    <span class="text-xs text-purple-400 font-bold uppercase tracking-widest">H5 微信公众号推文</span>
+                    <h3 class="text-xl font-bold mt-1 mb-1">FilmAction 产品推广 H5 长图文</h3>
+                    <p class="text-gray-400 text-sm">为 FilmAction 微信公众号设计的 H5 推文，采用竖版长图滚动形式，展示多种 AI 艺术风格与产品介绍，视觉风格清新活泼。</p>
+                </div>
+                <!-- Two-column layout: narrow image on left, description text on right -->
+                <div class="h5-layout-row">
+                    <div class="h5-img-col">
+                        <div class="h5-combined">
+                            <img src="design_h5_0.webp" alt="H5 Part 1 - Style Gallery">
+                            <img src="design_h5_1.webp" alt="H5 Part 2 - Ink & Pixel Art">
+                            <img src="design_h5_2.webp" alt="H5 Part 3 - Impressionism & About">
+                        </div>
+                    </div>
+                    <div class="h5-text-col">
+                        <h4 class="text-white font-bold text-base mb-3">设计说明</h4>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-4">本推文为 FilmAction AI 电影制作平台设计，用于微信公众号产品推广，采用竖版 H5 长图滚动形式。</p>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-4">整体视觉以渐变色彩与手写字体为主调，营造轻松活泼的阅读氛围。内容结构分为三段：</p>
+                        <div class="space-y-3">
+                            <div class="border-l-2 border-purple-500 pl-3">
+                                <p class="text-white text-xs font-bold mb-1">风格艺术馆 · Style Gallery</p>
+                                <p class="text-gray-400 text-xs leading-relaxed">以"风格艺术馆"为主题，介绍平台支持的多种 AI 绘画风格，引导用户进入创作场景。</p>
+                            </div>
+                            <div class="border-l-2 border-purple-500 pl-3">
+                                <p class="text-white text-xs font-bold mb-1">美漫风 · 水墨风 · 像素画 · 印象派</p>
+                                <p class="text-gray-400 text-xs leading-relaxed">展示四种特色风格（美漫、水墨、像素画、印象派）的生成案例，每种风格配有简介与示例图，直观呈现平台能力。</p>
+                            </div>
+                            <div class="border-l-2 border-purple-500 pl-3">
+                                <p class="text-white text-xs font-bold mb-1">产品介绍 · About Us</p>
+                                <p class="text-gray-400 text-xs leading-relaxed">以"About us"与"How to use"两个板块收尾，介绍 FilmAction 的核心功能与使用方式，引导用户访问平台。</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-xs mt-5">设计工具：Adobe Photoshop / 即时设计<br>发布平台：微信公众号 H5</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel 3: HICOOL Exhibition Booth -->
+            <div id="panel-hicool-booth" class="design-panel">
+                <div class="mb-4">
+                    <span class="text-xs text-purple-400 font-bold uppercase tracking-widest">展板设计</span>
+                    <h3 class="text-xl font-bold mt-1 mb-1">HICOOL 2024 全球创业大赛 · 展板设计</h3>
+                    <p class="text-gray-400 text-sm">为瀚皓科技参加 HICOOL 2024 全球创业大赛设计的展位展板，融合品牌视觉与产品展示，现场实景呈现。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="rounded-2xl overflow-hidden">
+                        <img src="design_hicool_booth.webp" alt="HICOOL Booth Photo" class="w-full h-auto object-cover">
+                        <p class="text-xs text-gray-500 text-center mt-2">展位现场实景</p>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden">
+                        <img src="design_filmaction_board.jpg" alt="FilmAction Exhibition Board" class="w-full h-auto object-cover">
+                        <p class="text-xs text-gray-500 text-center mt-2">展板设计稿</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-20 bg-black border-t border-white/10 text-center">
+        <div class="content-container">
+            <h2 data-i18n="footer_title" class="text-3xl font-bold mb-8 tracking-tighter">期待与您合作</h2>
+            <div class="flex justify-center space-x-6 text-gray-400 mb-12">
+                <a href="mailto:thisisyuhanliu@gmail.com" class="hover:text-white transition-colors">Email</a>
+                <a href="https://www.linkedin.com/in/yuhan-liu-y2002" class="hover:text-white transition-colors">LinkedIn</a>
+                <a href="#" class="hover:text-white transition-colors">TikTok</a>
+            </div>
+            <p class="text-xs text-gray-600">© 2026 Yuhan Liu. Designed with Apple Aesthetics & Cyberpunk Soul.</p>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            zh: {
+                nav_home: "首页", nav_edu: "教育背景", nav_exp: "工作经验", nav_projects: "项目作品", nav_otherside: "不一样的我",
+                hero_title: "数字营销专家，内容创作者。",
+                hero_edu_1: "伦敦国王学院 (KCL)", hero_edu_2: "中央戏剧学院",
+                exp_title: "工作经验",
+                exp_1_role: "公关实习生 | 北京",
+                exp_1_list_0: "支持波司登及星展银行（DBS）整合公关活动，品牌正面情绪提升 10%。",
+                exp_1_list_1: "协助执行星展银行 10 周年“可持续发展市场”活动，协调 14 个合作伙伴展位。",
+                exp_1_list_2: "统筹 3 场波司登大型活动，覆盖 50+ 媒体，社交声量提升 20%，曝光量增加 15%。",
+                exp_1_list_3: "撰写 20+ 篇高管演讲稿及 media Q&A，采纳率达 90%。",
+                exp_2_role: "市场与品牌实习生 | 北京",
+                exp_2_list_0: "从 0 到 1 构建 FilmAction 私域社区，1 个月内增长至 2000+ 成员，互动率提升 10%。",
+                exp_2_list_1: "运营微信、小红书及视频号，粉丝增长 35%，UGC 内容增长 50%。",
+                exp_2_list_2: "主导 2024 产品发布会公关，获得 10+ 媒体报道及 20 万+ 曝光，促成国家级媒体采访。",
+                exp_3_role: "品牌实习生 | 佛山",
+                exp_3_list_0: "监测抖音/今日头条舆情，识别风险并助力负面信息减少 18%。",
+                exp_3_list_1: "支持国强公益基金会直播活动，优化脚本使销售额提升 12%。",
+                exp_3_list_2: "进行 KOL 分析，筛选 300 万+ 粉丝博主，提升活动参与度 25%。",
+                proj_title: "项目作品", proj_1_tag: "荣耀创意挑战赛 全国第五", proj_1_title: "荣耀 70 & 平板 8 营销方案", proj_1_desc: "作为队长，策划“主角模式”定位，针对年轻用户群体。制作短片《月圆之时》，全网播放量超 6 万。",
+                proj_2_tag: "全国大学生艺术策划大赛 二等奖", proj_2_title: "“此间：八仙非遗”沉浸式街区", proj_2_desc: "设计结合灯光秀、无人机与元宇宙 AI 交互的非遗体验。",
+                proj_3_title: "TikTok 30日播放量", proj_3_desc: "个人账号内容创作者",
+                design_tag: "设计作品集", design_title: "我的设计作品", design_desc: "H5, 企业展板, 融资路演 PPT",
+                click_more: "点击了解更多",
+                honor_detail: "作为队长，我主导了荣耀 70 系列与平板 8 的整合营销策划。我们精准锁定了 Z 世代“自我表达”的需求，提出了“主角模式”的核心传播概念。通过数据驱动的受众分析，我们制定了跨平台的媒介投放策略，并亲自执导了创意短片《月圆之时》，在全网获得了极高的互动与好评。",
+                immortals_detail: "该项目旨在通过现代科技手段复兴传统“八仙”文化。我们设计了一个集灯光秀、无人机表演与元宇宙 AI 交互于一体的沉浸式街区。用户可以通过移动端与虚拟角色互动，体验跨越时空的文化魅力。该方案在全国大学生艺术策划大赛中荣获二等奖。",
+                design_detail: "这里展示了我在品牌传播和企业服务中的多项设计成果。包括为品牌营销定制的 H5 交互页面、大型活动的企业展板设计，以及为企业融资路演打造的高质量 PPT 视觉方案。每一项作品都致力于将商业逻辑与视觉美学完美结合。",
+                otherside_title: "不一样的我", sm_title: "0失误的 Stage Manager",
+                sm_desc_1: "担任2023年桂林艺术节及世界戏剧教育联盟展演重点剧目《梁祝》的舞台监督。与世界知名舞美设计师刘杏林紧密合作，确保复杂舞美、灯光及场景切换的无缝执行。",
+                sm_desc_2: "担任《戏剧春秋》舞台监督。负责监督舞台制作的所有环节，包括排练调度、道具管理及每场演出的技术协调。",
+                sm_cap_3: "我在舞台上", sm_cap_4: "我在舞台控制台工作",
+                outdoor_title: "户外运动爱好者", 
+                hiking_title: "高海拔徒步 | Hiking", hiking_desc: "曾在云南雨崩完成4天60公里的高海拔徒步，累计爬升4000米，全程负重13公斤。挑战极限，探索自然之美。",
+                boat_title: "冲锋艇驾驶 | Powerboating", boat_desc: "持有 RYA Powerboat Level 2 证书，具备在全球范围内驾驶长度10米以内冲锋艇的资格。享受速度与浪花的律动。",
+                edu_title: "教育背景",
+                edu_1_degree: "数字资产与媒体管理 | 硕士", edu_1_desc: "核心课程：数字营销、全球数字受众、互联网文化、虚假新闻与网络文化。",
+                edu_2_degree: "艺术管理 (剧目制作) | 学士", edu_2_desc: "GPA: 3.65/4.0 | 2024 二等奖学金。核心课程：文化活动管理、演艺市场营销、艺术法。",
+                footer_title: "期待与您合作"
+            },
+            en: {
+                nav_home: "Home", nav_edu: "Education", nav_exp: "Experience", nav_projects: "Projects", nav_otherside: "The Other Side",
+                hero_title: "Digital marketer, content creator.",
+                hero_edu_1: "King’s College London (KCL)", hero_edu_2: "The Central Academy of Drama",
+                exp_title: "Professional Experience",
+                exp_1_role: "Public Relations Intern | Beijing",
+                exp_1_list_0: "Supported integrated PR campaigns for Bosideng and DBS Bank; tracked KPIs, contributing to a 10% increase in positive brand sentiment.",
+                exp_1_list_1: "Assisted in executing DBS Sustainability Marketplace (10th anniversary), coordinating 14 partner booths and on-site engagement.",
+                exp_1_list_2: "Coordinated 3 large-scale Bosideng events, attracting 200+ attendees and boosting social conversations by 20%; secured coverage from 50+ media outlets.",
+                exp_1_list_3: "Wrote over 20 speeches and media Q&A scripts for senior executives and celebrities, achieving a 90% adoption rate.",
+                exp_2_role: "Marketing & Branding Intern | Beijing",
+                exp_2_list_0: "Built and scaled FilmAction’s private WeChat community (0 to 2,000+ members in 1 month), driving +10% platform engagement.",
+                exp_2_list_1: "Managed social media across WeChat, Xiaohongshu, and Video Channels, increasing followers by 35% and UGC by 50%.",
+                exp_2_list_2: "Led 2024 product launch event and PR efforts, securing 10+ earned media placements and 200K impressions, including national state media interviews.",
+                exp_3_role: "Brand Intern | Foshan",
+                exp_3_list_0: "Monitored public sentiment on Douyin and Toutiao, identifying risks and helping reduce negative information by 18%.",
+                exp_3_list_1: "Supported Guoqiang Public Welfare Foundation live streaming events, optimizing scripts to increase sales by 12%.",
+                exp_3_list_2: "Conducted KOL analysis, screening influencers with 3M+ followers, improving campaign engagement by 25%.",
+                proj_title: "Projects", proj_1_tag: "Honor Creative Challenge National 5th", proj_1_title: "Honor 70 & Pad 8 Marketing Plan", proj_1_desc: "As team leader, planned 'Protagonist Mode' positioning for young users. Produced short film 'Full Moon', 60K+ views.",
+                proj_2_tag: "National Art Planning Competition 2nd Prize", proj_2_title: "Immersive 'Eight Immortals' District", proj_2_desc: "Designed an immersive experience combining light shows, drones, and Metaverse AI interaction.",
+                proj_3_title: "TikTok 30-Day Views", proj_3_desc: "Personal Content Creator",
+                design_tag: "Design Portfolio", design_title: "My Design Works", design_desc: "H5, Exhibition Boards, Roadshow PPT",
+                click_more: "Click to Learn More",
+                honor_detail: "As team leader, I led the integrated marketing for Honor 70 and Pad 8. We targeted Gen Z's need for self-expression with the 'Protagonist Mode' concept. Through data-driven analysis, we set cross-platform media strategies and directed the creative film 'Full Moon', achieving high engagement.",
+                immortals_detail: "This project aimed to revive traditional 'Eight Immortals' culture through modern tech. We designed an immersive district with light shows, drones, and AI interaction. Users interact with virtual characters via mobile. Won 2nd prize in the National Art Planning Competition.",
+                design_detail: "Showcasing design achievements in brand communication and corporate services, including H5 interactive pages, exhibition boards, and high-quality roadshow PPTs. Each work combines business logic with visual aesthetics.",
+                otherside_title: "The Other Side", sm_title: "Zero-Error Stage Manager",
+                sm_desc_1: "Stage Manager for 'The Butterfly Lovers' at 2023 Guilin Art Festival. Collaborated with world-renowned designer Liu Xinglin to ensure seamless execution of complex stage designs.",
+                sm_desc_2: "Stage Manager for 'Drama Chronicles'. Responsible for all production aspects, including rehearsal scheduling, prop management, and technical coordination.",
+                sm_cap_3: "Me on Stage", sm_cap_4: "Working at the Console",
+                outdoor_title: "Outdoor Enthusiast", 
+                hiking_title: "High Altitude Hiking", hiking_desc: "Completed 60km hiking in Yubeng, Yunnan over 4 days, 4000m ascent, carrying 13kg. Challenging limits and exploring nature.",
+                boat_title: "Powerboating", boat_desc: "RYA Powerboat Level 2 certified, qualified to drive powerboats up to 10m globally. Enjoying the rhythm of speed and waves.",
+                edu_title: "Education",
+                edu_1_degree: "Digital Asset & Media Management | MA", edu_1_desc: "Core: Digital Marketing, Global Digital Audiences, Internet Culture, Fake News.",
+                edu_2_degree: "Arts Management (Production) | BA", edu_2_desc: "GPA: 3.65/4.0 | 2024 2nd Class Scholarship. Core: Cultural Event Management, Arts Marketing, Arts Law.",
+                footer_title: "Looking Forward to Collaborating"
+            }
+        };
+
+        let currentLang = 'zh';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+            document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+            // Switch honor modal bilingual blocks
+            const honorZh = document.getElementById('honor-detail-zh');
+            const honorEn = document.getElementById('honor-detail-en');
+            if (honorZh && honorEn) {
+                honorZh.style.display = currentLang === 'zh' ? '' : 'none';
+                honorEn.style.display = currentLang === 'en' ? '' : 'none';
+            }
+            // Switch immortals modal bilingual blocks
+            const immortalsZh = document.getElementById('immortals-detail-zh');
+            const immortalsEn = document.getElementById('immortals-detail-en');
+            if (immortalsZh && immortalsEn) {
+                immortalsZh.style.display = currentLang === 'zh' ? '' : 'none';
+                immortalsEn.style.display = currentLang === 'en' ? '' : 'none';
+            }
+        }
+
+        function openModal(id) {
+            document.getElementById(id + '-modal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id + '-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            // Stop video when closing
+            const video = document.querySelector('#' + id + '-modal video');
+            if (video) video.pause();
+        }
+
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                const video = event.target.querySelector('video');
+                if (video) video.pause();
+            }
+        }
+
+        // PPT Slideshow (single-image full-width, nav buttons show next portion)
+        // Since each PPT is a single tall/wide image, we use CSS object-position scrolling effect
+        // For multi-image slideshows, add more .ppt-slide divs
+        function slidePPT(id, dir) {
+            const track = document.getElementById(id + '-track');
+            if (!track) return;
+            const slides = track.querySelectorAll('.ppt-slide');
+            if (slides.length <= 1) return;
+            let current = parseInt(track.dataset.current || '0');
+            current = (current + dir + slides.length) % slides.length;
+            track.dataset.current = current;
+            track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        }
+
+        // Design Tab Switcher
+        function switchDesignTab(btn, panelId) {
+            // Update tabs
+            btn.closest('.flex').querySelectorAll('.design-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            // Update panels
+            document.querySelectorAll('.design-panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('panel-' + panelId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
